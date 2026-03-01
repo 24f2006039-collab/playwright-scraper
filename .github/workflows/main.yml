@@ -1,0 +1,25 @@
+name: Playwright Scraper
+on: [push, workflow_dispatch] # Runs when you save code or click a button
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install playwright
+
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run Scraper for 24f2006039@ds.study.iitm.ac.in
+        run: node scrape.js
